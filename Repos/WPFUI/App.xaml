@@ -1,0 +1,23 @@
+﻿<Application x:Class="WPFUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPFUI"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style x:Key="TopHeaderButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="Foreground" Value="#989898"/>
+        </Style>
+
+        <Style x:Key="IconTextBlock" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="fonts/#iconfont"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+    </Application.Resources>
+</Application>
