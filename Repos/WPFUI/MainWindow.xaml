@@ -1,394 +1,332 @@
-﻿<Window x:Class="WPFUI.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFUI"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        Title="WPF内部培训训练"
-        Height="900" Width="1280">
+﻿<Window
+    x:Class="WPFUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WPFUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="WPF内部培训训练"
+    Width="1280"
+    Height="900"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition/>
+            <RowDefinition Height="60" />
+            <RowDefinition />
         </Grid.RowDefinitions>
-
-        <Border Background="White"/>
-
+        <Border Background="White" />
         <DockPanel Margin="45,0">
-            <TextBlock Text="实战训练营"  
-                   VerticalAlignment="Center" FontSize="20">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="20"
+                Text="{Binding Title}">
                 <TextBlock.Foreground>
                     <LinearGradientBrush>
-                        <GradientStop Color="#FFFBA2A1" Offset="0"/>
-                        <GradientStop Color="#FFFF486C" Offset="1"/>
+                        <GradientStop Offset="0" Color="#FFFBA2A1" />
+                        <GradientStop Offset="1" Color="#FFFF486C" />
                     </LinearGradientBrush>
                 </TextBlock.Foreground>
             </TextBlock>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <ItemsControl HorizontalAlignment="Right" ItemsSource="{Binding ButtonModels}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{StaticResource TopHeaderButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xe720;" Style="{StaticResource IconTextBlock}"  />
-                        <TextBlock Text="用户"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource TopHeaderButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xe613;" Style="{StaticResource IconTextBlock}"/>
-                        <TextBlock Text="财务"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource TopHeaderButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xe62b;" Style="{StaticResource IconTextBlock}"/>
-                        <TextBlock Text="积分"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource TopHeaderButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xe636;" Style="{StaticResource IconTextBlock}"/>
-                        <TextBlock Text="市场"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource TopHeaderButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xe69a;" Style="{StaticResource IconTextBlock}"/>
-                        <TextBlock Text="客服"/>
-                    </StackPanel>
-                </Button>
-
-                <Image Source="images/logo.png" Margin="50,0,0,0" Width="50" Height="50">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button CommandParameter="{Binding Content}" Style="{StaticResource TopHeaderButtonStyle}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource IconTextBlock}" Text="{Binding Icon}" />
+                                    <TextBlock Text="{Binding Content}" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Image
+                    Width="50"
+                    Height="50"
+                    Margin="50,0,0,0"
+                    Source="images/logo.png">
                     <Image.Clip>
-                        <EllipseGeometry RadiusX="25" RadiusY="25" Center="25,25"/>
+                        <EllipseGeometry
+                            Center="25,25"
+                            RadiusX="25"
+                            RadiusY="25" />
                     </Image.Clip>
                 </Image>
-
-                <Button Content="退出" Style="{StaticResource TopHeaderButtonStyle}" />
+                <Button
+                    Command="{Binding ExecuteCommand}"
+                    CommandParameter="退出"
+                    Content="退出"
+                    Style="{StaticResource TopHeaderButtonStyle}" />
             </StackPanel>
         </DockPanel>
 
-        <Border Background="#F4F4F4" Grid.Row="1"/>
-
-        <Grid Margin="30,30" Grid.Row="1">
+        <Border Grid.Row="1" Background="#F4F4F4" />
+        <Grid Grid.Row="1" Margin="30,30">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition />
+                <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="1.5*" />
             </Grid.ColumnDefinitions>
-            
-            <UniformGrid Columns="5" Grid.ColumnSpan="2">
-                <Border Margin="15,10"  Background="#FF2DA0F9">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
 
-                        <TextBlock Text="现金积分" Foreground="white" VerticalAlignment="Bottom" />
+            <ItemsControl Grid.ColumnSpan="2" ItemsSource="{Binding HeaderModels}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                        <TextBlock Text="255,539"   Foreground="white"
-                               FontSize="26" VerticalAlignment="Center" Grid.Row="1" FontWeight="Bold"/>
-                        <StackPanel Grid.Row="1" VerticalAlignment="Center" 
-                                    HorizontalAlignment="Right">
-                            <TextBlock Text="收益" Foreground="white" HorizontalAlignment="Right"/>
-                            <TextBlock Text="+0.8%" Foreground="white"/>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="15,10" Background="{Binding Background}">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="2*" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock
+                                    VerticalAlignment="Bottom"
+                                    Foreground="white"
+                                    Text="{Binding Title}" />
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    VerticalAlignment="Center"
+                                    FontSize="26"
+                                    FontWeight="Bold"
+                                    Foreground="white"
+                                    Text="255,539" />
+                                <StackPanel
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center">
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        Foreground="white"
+                                        Text="收益" />
+                                    <TextBlock Foreground="white" Text="{Binding InCome}" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Row="2"
+                                    VerticalAlignment="Top"
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="5,0"
+                                        Foreground="white"
+                                        Text="提现" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        Foreground="white"
+                                        Text="充值" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+            <DockPanel Grid.Row="1">
+                <Border
+                    Height="150"
+                    Margin="15"
+                    Background="White"
+                    DockPanel.Dock="Top">
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            FontSize="49"
+                            Foreground="#FFFDA005"
+                            Style="{StaticResource IconTextBlock}"
+                            Text="&#xe61e;" />
+                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="#242424"
+                                Text="成为会员,加入我们" />
+                            <TextBlock
+                                Margin="0,3"
+                                Foreground="#989898"
+                                Text="立即前往" />
                         </StackPanel>
-
-                        <StackPanel  Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal">
-                            <TextBlock Text="提现" Margin="5,0" Foreground="white" />
-                            <TextBlock Text="充值" Margin="5,0" Foreground="white"/>
-                        </StackPanel>
-                    </Grid>
+                    </StackPanel>
                 </Border>
- 
-                <Border Margin="15,10"  Background="#FF68CA29">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Text="商城积分" Foreground="white" VerticalAlignment="Bottom" />
-
-                        <TextBlock Text="656,683"   Foreground="white"
-                               FontSize="26" VerticalAlignment="Center" Grid.Row="1" FontWeight="Bold"/>
-                        <StackPanel Grid.Row="1" VerticalAlignment="Center" 
-                                    HorizontalAlignment="Right">
-                            <TextBlock Text="收益" Foreground="white" HorizontalAlignment="Right"/>
-                            <TextBlock Text="+0.8%" Foreground="white"/>
-                        </StackPanel>
-
-                        <StackPanel  Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal">
-                            <TextBlock Text="提现" Margin="5,0" Foreground="white" />
-                            <TextBlock Text="充值" Margin="5,0" Foreground="white"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
- 
-                <Border Margin="15,10"  Background="#FFFDA005">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Text="理财积分" Foreground="white" VerticalAlignment="Bottom" />
-
-                        <TextBlock Text="37,215"   Foreground="white"
-                               FontSize="26" VerticalAlignment="Center" Grid.Row="1" FontWeight="Bold"/>
-                        <StackPanel Grid.Row="1" VerticalAlignment="Center" 
-                                    HorizontalAlignment="Right">
-                            <TextBlock Text="收益" Foreground="white" HorizontalAlignment="Right"/>
-                            <TextBlock Text="+0.8%" Foreground="white"/>
-                        </StackPanel>
-
-                        <StackPanel  Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal">
-                            <TextBlock Text="提现" Margin="5,0" Foreground="white" />
-                            <TextBlock Text="充值" Margin="5,0" Foreground="white"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
- 
-                <Border Margin="15,10"  Background="#FF3EC6C4">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Text="激活码" Foreground="white" VerticalAlignment="Bottom" />
-
-                        <TextBlock Text="49,201"   Foreground="white"
-                               FontSize="26" VerticalAlignment="Center" Grid.Row="1" FontWeight="Bold"/>
-                        <StackPanel Grid.Row="1" VerticalAlignment="Center" 
-                                    HorizontalAlignment="Right">
-                            <TextBlock Text="收益" Foreground="white" HorizontalAlignment="Right"/>
-                            <TextBlock Text="+0.8%" Foreground="white"/>
-                        </StackPanel>
-
-                        <StackPanel  Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal">
-                            <TextBlock Text="提现" Margin="5,0" Foreground="white" />
-                            <TextBlock Text="充值" Margin="5,0" Foreground="white"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <Border Margin="15,10"  Background="#FFE0706F">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Text="活跃用户" Foreground="white" VerticalAlignment="Bottom" />
-
-                        <TextBlock Text="458,319"   Foreground="white"
-                               FontSize="26" VerticalAlignment="Center" Grid.Row="1" FontWeight="Bold"/>
-                        <StackPanel Grid.Row="1" VerticalAlignment="Center" 
-                                    HorizontalAlignment="Right">
-                            <TextBlock Text="收益" Foreground="white" HorizontalAlignment="Right"/>
-                            <TextBlock Text="+0.8%" Foreground="white"/>
-                        </StackPanel>
-
-                        <StackPanel  Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal">
-                            <TextBlock Text="提现" Margin="5,0" Foreground="white" />
-                            <TextBlock Text="充值" Margin="5,0" Foreground="white"/>
-                        </StackPanel>
-                    </Grid>
-                </Border> 
-            </UniformGrid>
-
-            <Grid Grid.Row="1" >
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Border Grid.ColumnSpan="2" Margin="15" Background="White"/>
-                <StackPanel   Grid.ColumnSpan="2"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                    <TextBlock FontSize="49" Text="&#xe61e;"
-                               Foreground="#FFFDA005"
-                               Style="{StaticResource IconTextBlock}"/>
-                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" >
-                        <TextBlock Text="成为会员,加入我们" FontSize="20" Foreground="#242424"/>
-                        <TextBlock Text="立即前往" Margin="0,3" Foreground="#989898"/>
-                    </StackPanel>
-                </StackPanel>
-                
-                <Border Grid.Row="1"  Margin="15" Background="White"/>
-                <Border Grid.Row="2"  Margin="15" Background="White"/>
-                <Border Grid.Row="1" Grid.Column="1" Margin="15" Background="White"/>
-                <Border Grid.Row="2" Grid.Column="2" Margin="15" Background="White"/>
-                 
-                <StackPanel Grid.Row="1"  
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                    <TextBlock FontSize="40" Text="&#xe67a;"
-                               Foreground="#FF2DA0F9"
-                               Style="{StaticResource IconTextBlock}"/>
-                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" >
-                        <TextBlock Text="我要投资" FontSize="20" Foreground="#242424"/>
-                        <TextBlock Text="立即前往" Margin="0,3" Foreground="#989898"/>
-                    </StackPanel>
-                </StackPanel>
-                
-                <StackPanel Grid.Row="1" Grid.Column="1"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                    <TextBlock FontSize="49" Text="&#xe62b;"
-                               Foreground="#FFFDA005"
-                               Style="{StaticResource IconTextBlock}"/>
-                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" >
-                        <TextBlock Text="积分商城" FontSize="20" Foreground="#242424"/>
-                        <TextBlock Text="立即前往" Margin="0,3" Foreground="#989898"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Grid.Row="2"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                    <TextBlock FontSize="40" Text="&#xe61d;" 
-                               Foreground="#FF3EC6C4"
-                               Style="{StaticResource IconTextBlock}"/>
-                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" >
-                        <TextBlock Text="兑换任务" FontSize="20" Foreground="#242424"/>
-                        <TextBlock Text="立即前往" Margin="0,3" Foreground="#989898"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Grid.Row="2" Grid.Column="2"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                    <TextBlock FontSize="40" Text="&#xe6a8;"
-                               Foreground="#FF68CA29"
-                               Style="{StaticResource IconTextBlock}"/>
-                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center" >
-                        <TextBlock Text="线下充值" FontSize="20" Foreground="#242424"/>
-                        <TextBlock Text="立即前往" Margin="0,3" Foreground="#989898"/>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
+                <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding MenuModels}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="2" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="15" Background="White">
+                                <StackPanel
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        FontSize="49"
+                                        Foreground="{Binding Foreground}"
+                                        Style="{StaticResource IconTextBlock}"
+                                        Text="{Binding Icon}" />
+                                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock
+                                            FontSize="20"
+                                            Foreground="#242424"
+                                            Text="{Binding Title}" />
+                                        <TextBlock
+                                            Margin="0,3"
+                                            Foreground="#989898"
+                                            Text="立即前往" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </DockPanel>
 
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                 
-                <Border  Margin="15" Background="White"/>
+                <Border Margin="15" Background="White" />
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
-                    <Border BorderThickness="0,0,1,0"
-                            Margin="0,30"
-                            BorderBrush="WhiteSmoke"/>
-                    
+                    <Border
+                        Margin="0,30"
+                        BorderBrush="WhiteSmoke"
+                        BorderThickness="0,0,1,0" />
+
                     <Grid Margin="30">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="3.5*"/>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="3.5*" />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="个人资料" FontWeight="Bold" Foreground="#787878"/>
+                        <TextBlock
+                            FontWeight="Bold"
+                            Foreground="#787878"
+                            Text="个人资料" />
 
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <Image Source="images/logo.png"  Width="100" Height="100">
+                            <Image
+                                Width="100"
+                                Height="100"
+                                Source="images/logo.png">
                                 <Image.Clip>
-                                    <EllipseGeometry RadiusX="50" RadiusY="50" Center="50,50"/>
+                                    <EllipseGeometry
+                                        Center="50,50"
+                                        RadiusX="50"
+                                        RadiusY="50" />
                                 </Image.Clip>
                             </Image>
 
-                            <TextBlock Text="包图小王子" Margin="10,0,0,0"
-                                       VerticalAlignment="Center"
-                                       FontWeight="Bold" Foreground="#787878"/>
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Foreground="#787878"
+                                Text="包图小王子" />
                         </StackPanel>
 
-                        <Button Content="修改资料" Padding="15,8"
-                                VerticalAlignment="Center"
-                                Foreground="White"
-                                Background="#2DA0F9"
-                                BorderThickness="0"
-                                Grid.Row="1" HorizontalAlignment="Right"/>
+                        <Button
+                            Grid.Row="1"
+                            Padding="15,8"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Background="#2DA0F9"
+                            BorderThickness="0"
+                            Command="{Binding ExecuteCommand}"
+                            CommandParameter="修改资料"
+                            Content="修改资料"
+                            Foreground="White" />
 
                         <StackPanel Grid.Row="2">
-                            <TextBlock Text="手机号:  13456892389     开户姓名:  叶良辰"   Foreground="#787878"/>
-                            <TextBlock Text="用户名:  James2021" Margin="0,5"  Foreground="#787878"/>
+                            <TextBlock Foreground="#787878" Text="手机号:  13456892389     开户姓名:  叶良辰" />
+                            <TextBlock
+                                Margin="0,5"
+                                Foreground="#787878"
+                                Text="用户名:  James2021" />
                         </StackPanel>
 
                         <DockPanel Grid.Row="3">
-                            <Button Content="推广链接" 
-                                    DockPanel.Dock="Right"
-                                    Padding="15,8"
+                            <Button
+                                Grid.Row="1"
+                                Padding="15,8"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Foreground="White"
                                 Background="#68CA29"
                                 BorderThickness="0"
-                                Grid.Row="1" HorizontalAlignment="Right"/>
+                                Command="{Binding ExecuteCommand}"
+                                CommandParameter="推广链接"
+                                Content="推广链接"
+                                DockPanel.Dock="Right"
+                                Foreground="White" />
                             <TextBox
+                                Padding="8"
+                                VerticalAlignment="Center"
                                 Background="#FFF4F4F4"
-                                Padding="8" BorderThickness="0"
-                                Text="https://github.com/HenJigg"
-                                VerticalAlignment="Center"/>
+                                BorderThickness="0"
+                                Text="https://github.com/HenJigg" />
                         </DockPanel>
                     </Grid>
 
-                    <Grid Margin="30" Grid.Column="1">
+                    <Grid Grid.Column="1" Margin="30">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>  
-                            <RowDefinition/>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="推荐用户" FontWeight="Bold" Foreground="#787878"/>
+                        <TextBlock
+                            FontWeight="Bold"
+                            Foreground="#787878"
+                            Text="推荐用户" />
 
-                        <ListBox Grid.Row="1" BorderThickness="0" Margin="0,10,0,0">
+                        <ListBox
+                            Grid.Row="1"
+                            Margin="0,10,0,0"
+                            BorderThickness="0"
+                            ItemsSource="{Binding UserModels}">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="Background" Value="Transparent" />
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                 <Grid>
-                                                    <Border Name="border"/>
-                                                    <ContentPresenter/>
+                                                    <Border Name="border" />
+                                                    <ContentPresenter />
                                                 </Grid>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsSelected" Value="True">
-                                                        <Setter Property="Foreground" Value="White"/>
-                                                        <Setter Property="Background" TargetName="border" Value="#2DA0F9"/>
+                                                        <Setter Property="Foreground" Value="White" />
+                                                        <Setter TargetName="border" Property="Background" Value="#2DA0F9" />
                                                     </Trigger>
                                                 </ControlTemplate.Triggers>
                                             </ControlTemplate>
@@ -396,104 +334,89 @@
                                     </Setter>
                                 </Style>
                             </ListBox.ItemContainerStyle>
-                            
-                            <ListBoxItem>
-                                <StackPanel Orientation="Horizontal" Background="Transparent">
-                                    <Image Source="images/logo.png" Margin="5,20" Width="50" Height="50">
-                                        <Image.Clip>
-                                            <EllipseGeometry RadiusX="25" RadiusY="25" Center="25,25"/>
-                                        </Image.Clip>
-                                    </Image>
 
-                                    <TextBlock Text="看那飞奔的牛" Margin="15,0" VerticalAlignment="Center"/>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Background="Transparent" Orientation="Horizontal">
+                                        <Image
+                                            Width="50"
+                                            Height="50"
+                                            Margin="5,20"
+                                            Source="{Binding ImageUrl}">
+                                            <Image.Clip>
+                                                <EllipseGeometry
+                                                    Center="25,25"
+                                                    RadiusX="25"
+                                                    RadiusY="25" />
+                                            </Image.Clip>
+                                        </Image>
 
-                                    <TextBlock Text="07-13" Margin="15,0" VerticalAlignment="Center"/>
+                                        <TextBlock
+                                            Margin="15,0"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Title}" />
 
-                                    <TextBlock Text="➝"  Margin="15,0" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </ListBoxItem>
+                                        <TextBlock
+                                            Margin="15,0"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Time}" />
 
-                            <ListBoxItem>
-                                <StackPanel Orientation="Horizontal" Background="Transparent">
-                                    <Image Source="images/logo.png" Margin="5,20" Width="50" Height="50">
-                                        <Image.Clip>
-                                            <EllipseGeometry RadiusX="25" RadiusY="25" Center="25,25"/>
-                                        </Image.Clip>
-                                    </Image>
-
-                                    <TextBlock Text="看那飞奔的牛" Margin="15,0" VerticalAlignment="Center"/>
-
-                                    <TextBlock Text="07-13" Margin="15,0" VerticalAlignment="Center"/>
-
-                                    <TextBlock Text="➝"  Margin="15,0" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </ListBoxItem>
-
-                            <ListBoxItem>
-                                <StackPanel Orientation="Horizontal" Background="Transparent">
-                                    <Image Source="images/logo.png" Margin="5,20" Width="50" Height="50">
-                                        <Image.Clip>
-                                            <EllipseGeometry RadiusX="25" RadiusY="25" Center="25,25"/>
-                                        </Image.Clip>
-                                    </Image>
-
-                                    <TextBlock Text="看那飞奔的牛" Margin="15,0" VerticalAlignment="Center"/>
-
-                                    <TextBlock Text="07-13" Margin="15,0" VerticalAlignment="Center"/>
-
-                                    <TextBlock Text="➝"  Margin="15,0" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </ListBoxItem>
+                                        <TextBlock
+                                            Margin="15,0"
+                                            VerticalAlignment="Center"
+                                            Text="➝" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
                 </Grid>
-                
-                <Border Grid.Row="1"  Margin="15" Background="White"/>
+                <Border
+                    Grid.Row="1"
+                    Margin="15"
+                    Background="White" />
                 <Grid Grid.Row="1" Margin="30">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="消费记录" FontWeight="Bold" Foreground="#787878"/>
+                    <TextBlock
+                        FontWeight="Bold"
+                        Foreground="#787878"
+                        Text="消费记录" />
 
-                    <UniformGrid Grid.Row="1" Columns="4"  >
-                        <StackPanel HorizontalAlignment="Center"  VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="-168" Foreground="#FF2D9CF3" FontSize="28"   FontWeight="Bold"/>
-                                <TextBlock Text="点商城积分" VerticalAlignment="Bottom" Margin="5"  />
-                            </StackPanel>
-                            <TextBlock Text="07-10" Margin="10"/>
-                            <TextBlock Text="查看明细" Foreground="#787878" Margin="10,0" FontWeight="Bold"/>
-                        </StackPanel>
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding RecondModels}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="4" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="-168" Foreground="#FF2D9CF3" FontSize="28"   FontWeight="Bold"/>
-                                <TextBlock Text="点商城积分" VerticalAlignment="Bottom" Margin="5"  />
-                            </StackPanel>
-                            <TextBlock Text="07-10" Margin="10"/>
-                            <TextBlock Text="查看明细" Foreground="#787878" Margin="10,0" FontWeight="Bold"/>
-                        </StackPanel>
-
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="-168" Foreground="#FF2D9CF3" FontSize="28"   FontWeight="Bold"/>
-                                <TextBlock Text="点商城积分" VerticalAlignment="Bottom" Margin="5"  />
-                            </StackPanel>
-                            <TextBlock Text="07-10" Margin="10"/>
-                            <TextBlock Text="查看明细" Foreground="#787878" Margin="10,0" FontWeight="Bold"/>
-                        </StackPanel>
-
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="-168" Foreground="#FF2D9CF3" FontSize="28"   FontWeight="Bold"/>
-                                <TextBlock Text="点商城积分" VerticalAlignment="Bottom" Margin="5"  />
-                            </StackPanel>
-                            <TextBlock Text="07-10" Margin="10"/>
-                            <TextBlock Text="查看明细" Foreground="#787878" Margin="10,0" FontWeight="Bold"/>
-                        </StackPanel>
-                    </UniformGrid>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            FontSize="28"
+                                            FontWeight="Bold"
+                                            Foreground="#FF2D9CF3"
+                                            Text="{Binding Count}" />
+                                        <TextBlock
+                                            Margin="5"
+                                            VerticalAlignment="Bottom"
+                                            Text="点商城积分" />
+                                    </StackPanel>
+                                    <TextBlock Margin="10" Text="{Binding Time}" />
+                                    <TextBlock
+                                        Margin="10,0"
+                                        FontWeight="Bold"
+                                        Foreground="#787878"
+                                        Text="查看明细" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </Grid>
         </Grid>

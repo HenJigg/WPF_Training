@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace WPFUI
         public MainWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<string>(this, "ShowInfomation", Show);
+        }
+
+        private void Show(string obj)
+        {
+            MessageBox.Show(obj);
         }
     }
 }
